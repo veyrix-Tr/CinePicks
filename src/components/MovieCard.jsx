@@ -1,12 +1,12 @@
 import '../styles/MovieCard.css';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onClick }) => {
   const handleImageError = (e) => {
     e.target.src = 'https://picsum.photos/seed/fallback/300/450.jpg';
   };
 
   return (
-    <div className="movie-card">
+    <div className="movie-card" onClick={onClick}>
       <div className="movie-poster">
         <img 
           src={movie.poster} 
