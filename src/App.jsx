@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import GenreFilter from './components/GenreFilter';
 import MovieList from './components/MovieList';
+import LiveBackground from './components/LiveBackground';
 import { movies, genres } from './data/movies';
 import './index.css';
 
@@ -14,13 +15,17 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
-      <GenreFilter 
-        genres={genres} 
-        selectedGenre={selectedGenre} 
-        onGenreSelect={setSelectedGenre} 
-      />
-      <MovieList movies={filteredMovies} />
+      <LiveBackground />
+
+      <div className="app-content">
+        <Header />
+        <GenreFilter 
+          genres={genres} 
+          selectedGenre={selectedGenre} 
+          onGenreSelect={setSelectedGenre} 
+        />
+        <MovieList movies={filteredMovies} />
+      </div>
     </div>
   );
 }

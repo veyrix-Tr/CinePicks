@@ -4,21 +4,713 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #05050b;
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --muted-2: rgba(203, 213, 225, 0.78);
+  --panel: rgba(15, 15, 24, 0.55);
+  --panel-2: rgba(12, 12, 20, 0.55);
+  --border: rgba(255, 255, 255, 0.10);
+  --border-2: rgba(255, 255, 255, 0.14);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --accent-1: #a855f7;
+  --accent-2: #8b5cf6;
+  --accent-3: #6366f1;
+  --accent-4: #22d3ee;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  color: #f1f5f9;
+  background: #000000;
+  color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .app {
   min-height: 100vh;
+  position: relative;
 }
 
 #root {
   min-height: 100vh;
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 4rem;
+}
+
+.live-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #000000;
+}
+
+ .bg-canvas {
+   position: absolute;
+   inset: 0;
+   width: 100%;
+   height: 100%;
+ }
+
+ .bg-glass {
+   position: absolute;
+   inset: 0;
+   z-index: 5;
+   background: rgba(10, 10, 18, 0.04);
+   backdrop-filter: blur(7px);
+ }
+
+.particle-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.ball {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 0.7));
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.4);
+  mix-blend-mode: screen;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+.ball.colliding {
+  box-shadow: 0 0 100px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.9);
+  transform: scale(1.4);
+  animation: collisionFlash 0.3s ease-out;
+}
+
+.ball.wall-collision {
+  box-shadow: 0 0 120px rgba(255, 100, 100, 1), inset 0 0 50px rgba(255, 100, 100, 0.9);
+  transform: scale(1.5);
+  animation: wallCollisionFlash 0.4s ease-out;
+}
+
+@keyframes collisionFlash {
+  0% { box-shadow: 0 0 100px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.9); }
+  50% { box-shadow: 0 0 150px rgba(255, 255, 255, 0.8), inset 0 0 60px rgba(255, 255, 255, 0.6); }
+  100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.4); }
+}
+
+@keyframes wallCollisionFlash {
+  0% { box-shadow: 0 0 120px rgba(255, 100, 100, 1), inset 0 0 50px rgba(255, 100, 100, 0.9); }
+  50% { box-shadow: 0 0 180px rgba(255, 150, 100, 0.8), inset 0 0 70px rgba(255, 150, 100, 0.6); }
+  100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.4); }
+}
+
+.ball-1 {
+  width: 75px;
+  height: 75px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 0.7));
+  animation: ballBounce1 30s linear infinite, explosion1 2s ease-out forwards;
+  animation-delay: 0s, 0s;
+}
+
+.ball-2 {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.9), rgba(99, 102, 241, 0.7));
+  animation: ballBounce2 32s linear infinite, explosion2 2s ease-out forwards;
+  animation-delay: 1s, 0s;
+}
+
+.ball-3 {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.9), rgba(34, 211, 238, 0.7));
+  animation: ballBounce3 35s linear infinite, explosion3 2s ease-out forwards;
+  animation-delay: 2s, 0s;
+}
+
+.ball-4 {
+  width: 72px;
+  height: 72px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.9), rgba(6, 182, 212, 0.7));
+  animation: ballBounce4 28s linear infinite, explosion4 2s ease-out forwards;
+  animation-delay: 3s, 0s;
+}
+
+.ball-5 {
+  width: 78px;
+  height: 78px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.9), rgba(219, 39, 119, 0.7));
+  animation: ballBounce5 33s linear infinite, explosion5 2s ease-out forwards;
+  animation-delay: 4s, 0s;
+}
+
+/* Explosion animations - balls start from center and explode outward */
+@keyframes explosion1 {
+  0% { transform: translate(50vw, 50vh) scale(0); opacity: 0; }
+  20% { transform: translate(50vw, 50vh) scale(1.5); opacity: 1; }
+  100% { transform: translate(5vw, 5vh) scale(1); opacity: 1; }
+}
+
+@keyframes explosion2 {
+  0% { transform: translate(50vw, 50vh) scale(0); opacity: 0; }
+  20% { transform: translate(50vw, 50vh) scale(1.5); opacity: 1; }
+  100% { transform: translate(95vw, 10vh) scale(1); opacity: 1; }
+}
+
+@keyframes explosion3 {
+  0% { transform: translate(50vw, 50vh) scale(0); opacity: 0; }
+  20% { transform: translate(50vw, 50vh) scale(1.5); opacity: 1; }
+  100% { transform: translate(50vw, 2vh) scale(1); opacity: 1; }
+}
+
+@keyframes explosion4 {
+  0% { transform: translate(50vw, 50vh) scale(0); opacity: 0; }
+  20% { transform: translate(50vw, 50vh) scale(1.5); opacity: 1; }
+  100% { transform: translate(2vw, 92vh) scale(1); opacity: 1; }
+}
+
+@keyframes explosion5 {
+  0% { transform: translate(50vw, 50vh) scale(0); opacity: 0; }
+  20% { transform: translate(50vw, 50vh) scale(1.5); opacity: 1; }
+  100% { transform: translate(85vw, 55vh) scale(1); opacity: 1; }
+}
+
+.ball-6 {
+  width: 74px;
+  height: 74px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(236, 72, 153, 0.7));
+  animation: ballBounce6 31s linear infinite;
+  animation-delay: 5s;
+}
+
+.ball-7 {
+  width: 82px;
+  height: 82px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.9), rgba(34, 211, 238, 0.7));
+  animation: ballBounce7 36s linear infinite;
+  animation-delay: 6s;
+}
+
+.ball-8 {
+  width: 76px;
+  height: 76px;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.9), rgba(168, 85, 247, 0.7));
+  animation: ballBounce8 29s linear infinite;
+  animation-delay: 7s;
+}
+
+.ball-9 {
+  width: 79px;
+  height: 79px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.9), rgba(139, 92, 246, 0.7));
+  animation: ballBounce9 34s linear infinite;
+  animation-delay: 8s;
+}
+
+.ball-10 {
+  width: 73px;
+  height: 73px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.9), rgba(99, 102, 241, 0.7));
+  animation: ballBounce10 32s linear infinite;
+  animation-delay: 9s;
+}
+
+.ball-11 {
+  width: 81px;
+  height: 81px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(6, 182, 212, 0.7));
+  animation: ballBounce11 30s linear infinite;
+  animation-delay: 10s;
+}
+
+.ball-12 {
+  width: 71px;
+  height: 71px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.9), rgba(236, 72, 153, 0.7));
+  animation: ballBounce12 33s linear infinite;
+  animation-delay: 11s;
+}
+
+.ball-13 {
+  width: 85px;
+  height: 85px;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.9), rgba(168, 85, 247, 0.7));
+  animation: ballBounce13 35s linear infinite;
+  animation-delay: 12s;
+}
+
+.ball-14 {
+  width: 69px;
+  height: 69px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.9), rgba(139, 92, 246, 0.7));
+  animation: ballBounce14 31s linear infinite;
+  animation-delay: 13s;
+}
+
+.ball-15 {
+  width: 77px;
+  height: 77px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.9), rgba(34, 211, 238, 0.7));
+  animation: ballBounce15 34s linear infinite;
+  animation-delay: 14s;
+}
+
+.ball-16 {
+  width: 74px;
+  height: 74px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(99, 102, 241, 0.7));
+  animation: ballBounce16 32s linear infinite;
+  animation-delay: 15s;
+}
+
+.ball-17 {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.9), rgba(6, 182, 212, 0.7));
+  animation: ballBounce17 30s linear infinite;
+  animation-delay: 16s;
+}
+
+.ball-18 {
+  width: 72px;
+  height: 72px;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.9), rgba(236, 72, 153, 0.7));
+  animation: ballBounce18 29s linear infinite;
+  animation-delay: 17s;
+}
+
+.ball-19 {
+  width: 83px;
+  height: 83px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.9), rgba(168, 85, 247, 0.7));
+  animation: ballBounce19 35s linear infinite;
+  animation-delay: 18s;
+}
+
+.ball-20 {
+  width: 76px;
+  height: 76px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.9), rgba(139, 92, 246, 0.7));
+  animation: ballBounce20 31s linear infinite;
+  animation-delay: 19s;
+}
+
+.ball-21 {
+  width: 79px;
+  height: 79px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.9), rgba(34, 211, 238, 0.7));
+  animation: ballBounce21 33s linear infinite;
+  animation-delay: 20s;
+}
+
+.ball-22 {
+  width: 74px;
+  height: 74px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.9), rgba(99, 102, 241, 0.7));
+  animation: ballBounce22 32s linear infinite;
+  animation-delay: 21s;
+}
+
+.ball-23 {
+  width: 81px;
+  height: 81px;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.9), rgba(6, 182, 212, 0.7));
+  animation: ballBounce23 36s linear infinite;
+  animation-delay: 22s;
+}
+
+.ball-24 {
+  width: 73px;
+  height: 73px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.9), rgba(236, 72, 153, 0.7));
+  animation: ballBounce24 30s linear infinite;
+  animation-delay: 23s;
+}
+
+.ball-25 {
+  width: 78px;
+  height: 78px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.9), rgba(168, 85, 247, 0.7));
+  animation: ballBounce25 34s linear infinite;
+  animation-delay: 24s;
+}
+
+/* New balls with attractive colors and collision detection */
+.ball-26 {
+  width: 82px;
+  height: 82px;
+  background: radial-gradient(circle at 30% 30%, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.7));
+  animation: ballBounce26 35s linear infinite;
+  animation-delay: 25s;
+  box-shadow: 0 0 45px rgba(251, 191, 36, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-27 {
+  width: 75px;
+  height: 75px;
+  background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.7));
+  animation: ballBounce27 31s linear infinite;
+  animation-delay: 26s;
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-28 {
+  width: 79px;
+  height: 79px;
+  background: radial-gradient(circle at 30% 30%, rgba(244, 63, 94, 0.9), rgba(220, 38, 38, 0.7));
+  animation: ballBounce28 33s linear infinite;
+  animation-delay: 27s;
+  box-shadow: 0 0 42px rgba(244, 63, 94, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-29 {
+  width: 84px;
+  height: 84px;
+  background: radial-gradient(circle at 30% 30%, rgba(251, 146, 60, 0.9), rgba(234, 88, 12, 0.7));
+  animation: ballBounce29 36s linear infinite;
+  animation-delay: 28s;
+  box-shadow: 0 0 48px rgba(251, 146, 60, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-30 {
+  width: 71px;
+  height: 71px;
+  background: radial-gradient(circle at 30% 30%, rgba(163, 230, 53, 0.9), rgba(132, 204, 22, 0.7));
+  animation: ballBounce30 29s linear infinite;
+  animation-delay: 29s;
+  box-shadow: 0 0 38px rgba(163, 230, 53, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-31 {
+  width: 77px;
+  height: 77px;
+  background: radial-gradient(circle at 30% 30%, rgba(217, 70, 239, 0.9), rgba(192, 38, 211, 0.7));
+  animation: ballBounce31 32s linear infinite;
+  animation-delay: 30s;
+  box-shadow: 0 0 43px rgba(217, 70, 239, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-32 {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.9), rgba(37, 99, 235, 0.7));
+  animation: ballBounce32 34s linear infinite;
+  animation-delay: 31s;
+  box-shadow: 0 0 44px rgba(96, 165, 250, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-33 {
+  width: 74px;
+  height: 74px;
+  background: radial-gradient(circle at 30% 30%, rgba(253, 224, 71, 0.9), rgba(250, 204, 21, 0.7));
+  animation: ballBounce33 30s linear infinite;
+  animation-delay: 32s;
+  box-shadow: 0 0 41px rgba(253, 224, 71, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-34 {
+  width: 83px;
+  height: 83px;
+  background: radial-gradient(circle at 30% 30%, rgba(196, 181, 253, 0.9), rgba(167, 139, 250, 0.7));
+  animation: ballBounce34 35s linear infinite;
+  animation-delay: 33s;
+  box-shadow: 0 0 46px rgba(196, 181, 253, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.ball-35 {
+  width: 76px;
+  height: 76px;
+  background: radial-gradient(circle at 30% 30%, rgba(251, 207, 232, 0.9), rgba(244, 114, 182, 0.7));
+  animation: ballBounce35 31s linear infinite;
+  animation-delay: 34s;
+  box-shadow: 0 0 42px rgba(251, 207, 232, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Ball collision physics animations */
+@keyframes ballBounce1 {
+  0% { transform: translate(5vw, 5vh) scale(1); }
+  12% { transform: translate(85vw, 15vh) scale(1.3); }
+  25% { transform: translate(15vw, 75vh) scale(0.8); }
+  37% { transform: translate(75vw, 85vh) scale(1.2); }
+  50% { transform: translate(25vw, 25vh) scale(0.9); }
+  62% { transform: translate(95vw, 45vh) scale(1.4); }
+  75% { transform: translate(5vw, 65vh) scale(0.7); }
+  87% { transform: translate(65vw, 95vh) scale(1.1); }
+  100% { transform: translate(5vw, 5vh) scale(1); }
+}
+
+@keyframes ballBounce2 {
+  0% { transform: translate(95vw, 10vh) scale(1); }
+  14% { transform: translate(10vw, 40vh) scale(1.2); }
+  28% { transform: translate(80vw, 70vh) scale(0.8); }
+  42% { transform: translate(20vw, 20vh) scale(1.3); }
+  56% { transform: translate(90vw, 80vh) scale(0.7); }
+  70% { transform: translate(15vw, 50vh) scale(1.4); }
+  84% { transform: translate(85vw, 15vh) scale(0.9); }
+  100% { transform: translate(95vw, 10vh) scale(1); }
+}
+
+@keyframes ballBounce3 {
+  0% { transform: translate(50vw, 2vh) scale(1); }
+  16% { transform: translate(5vw, 50vh) scale(1.4); }
+  32% { transform: translate(95vw, 95vh) scale(0.6); }
+  48% { transform: translate(10vw, 10vh) scale(1.3); }
+  64% { transform: translate(85vw, 40vh) scale(0.8); }
+  80% { transform: translate(30vw, 80vh) scale(1.2); }
+  100% { transform: translate(50vw, 2vh) scale(1); }
+}
+
+@keyframes ballBounce4 {
+  0% { transform: translate(2vw, 90vh) scale(1); }
+  18% { transform: translate(70vw, 5vh) scale(1.3); }
+  36% { transform: translate(25vw, 95vh) scale(0.7); }
+  54% { transform: translate(95vw, 35vh) scale(1.4); }
+  72% { transform: translate(10vw, 60vh) scale(0.8); }
+  90% { transform: translate(80vw, 85vh) scale(1.2); }
+  100% { transform: translate(2vw, 90vh) scale(1); }
+}
+
+@keyframes ballBounce5 {
+  0% { transform: translate(80vw, 55vh) scale(1); }
+  20% { transform: translate(15vw, 15vh) scale(1.5); }
+  40% { transform: translate(90vw, 90vh) scale(0.5); }
+  60% { transform: translate(5vw, 40vh) scale(1.3); }
+  80% { transform: translate(75vw, 20vh) scale(0.8); }
+  100% { transform: translate(80vw, 55vh) scale(1); }
+}
+
+@keyframes ballBounce6 {
+  0% { transform: translate(25vw, 35vh) scale(1); }
+  15% { transform: translate(75vw, 75vh) scale(1.2); }
+  30% { transform: translate(5vw, 95vh) scale(0.8); }
+  45% { transform: translate(95vw, 5vh) scale(1.5); }
+  60% { transform: translate(35vw, 50vh) scale(0.7); }
+  75% { transform: translate(85vw, 85vh) scale(1.3); }
+  90% { transform: translate(15vw, 15vh) scale(0.9); }
+  100% { transform: translate(25vw, 35vh) scale(1); }
+}
+
+@keyframes ballBounce7 {
+  0% { transform: translate(60vw, 95vh) scale(1); }
+  22% { transform: translate(5vw, 5vh) scale(1.4); }
+  44% { transform: translate(95vw, 50vh) scale(0.6); }
+  66% { transform: translate(20vw, 85vh) scale(1.3); }
+  88% { transform: translate(80vw, 10vh) scale(0.8); }
+  100% { transform: translate(60vw, 95vh) scale(1); }
+}
+
+@keyframes ballBounce8 {
+  0% { transform: translate(10vw, 65vh) scale(1); }
+  19% { transform: translate(70vw, 20vh) scale(1.2); }
+  38% { transform: translate(20vw, 90vh) scale(0.8); }
+  57% { transform: translate(90vw, 45vh) scale(1.4); }
+  76% { transform: translate(30vw, 10vh) scale(0.7); }
+  95% { transform: translate(85vw, 75vh) scale(1.1); }
+  100% { transform: translate(10vw, 65vh) scale(1); }
+}
+
+@keyframes ballBounce9 {
+  0% { transform: translate(90vw, 30vh) scale(1); }
+  17% { transform: translate(30vw, 70vh) scale(1.3); }
+  34% { transform: translate(80vw, 5vh) scale(0.7); }
+  51% { transform: translate(10vw, 50vh) scale(1.5); }
+  68% { transform: translate(75vw, 90vh) scale(0.6); }
+  85% { transform: translate(25vw, 15vh) scale(1.2); }
+  100% { transform: translate(90vw, 30vh) scale(1); }
+}
+
+@keyframes ballBounce10 {
+  0% { transform: translate(40vw, 80vh) scale(1); }
+  21% { transform: translate(85vw, 15vh) scale(1.3); }
+  42% { transform: translate(5vw, 65vh) scale(0.7); }
+  63% { transform: translate(70vw, 95vh) scale(1.4); }
+  84% { transform: translate(20vw, 25vh) scale(0.8); }
+  100% { transform: translate(40vw, 80vh) scale(1); }
+}
+
+@keyframes ballBounce11 {
+  0% { transform: translate(15vw, 50vh) scale(1); }
+  23% { transform: translate(60vw, 85vh) scale(1.4); }
+  46% { transform: translate(90vw, 20vh) scale(0.6); }
+  69% { transform: translate(25vw, 60vh) scale(1.3); }
+  92% { transform: translate(80vw, 90vh) scale(0.8); }
+  100% { transform: translate(15vw, 50vh) scale(1); }
+}
+
+@keyframes ballBounce12 {
+  0% { transform: translate(75vw, 15vh) scale(1); }
+  16% { transform: translate(25vw, 55vh) scale(1.2); }
+  32% { transform: translate(65vw, 90vh) scale(0.8); }
+  48% { transform: translate(10vw, 10vh) scale(1.5); }
+  64% { transform: translate(85vw, 65vh) scale(0.7); }
+  80% { transform: translate(35vw, 35vh) scale(1.3); }
+  96% { transform: translate(95vw, 85vh) scale(0.9); }
+  100% { transform: translate(75vw, 15vh) scale(1); }
+}
+
+@keyframes ballBounce13 {
+  0% { transform: translate(55vw, 90vh) scale(1); }
+  19% { transform: translate(5vw, 30vh) scale(1.3); }
+  38% { transform: translate(85vw, 65vh) scale(0.7); }
+  57% { transform: translate(30vw, 5vh) scale(1.4); }
+  76% { transform: translate(70vw, 80vh) scale(0.6); }
+  95% { transform: translate(15vw, 55vh) scale(1.2); }
+  100% { transform: translate(55vw, 90vh) scale(1); }
+}
+
+@keyframes ballBounce14 {
+  0% { transform: translate(30vw, 10vh) scale(1); }
+  18% { transform: translate(80vw, 50vh) scale(1.2); }
+  36% { transform: translate(15vw, 80vh) scale(0.8); }
+  54% { transform: translate(70vw, 20vh) scale(1.3); }
+  72% { transform: translate(25vw, 70vh) scale(0.7); }
+  90% { transform: translate(90vw, 90vh) scale(1.4); }
+  100% { transform: translate(30vw, 10vh) scale(1); }
+}
+
+@keyframes ballBounce15 {
+  0% { transform: translate(85vw, 65vh) scale(1); }
+  24% { transform: translate(20vw, 25vh) scale(1.5); }
+  48% { transform: translate(75vw, 95vh) scale(0.5); }
+  72% { transform: translate(10vw, 40vh) scale(1.3); }
+  96% { transform: translate(65vw, 10vh) scale(0.8); }
+  100% { transform: translate(85vw, 65vh) scale(1); }
+}
+
+@keyframes ballBounce16 {
+  0% { transform: translate(45vw, 45vh) scale(1); }
+  20% { transform: translate(95vw, 25vh) scale(1.3); }
+  40% { transform: translate(5vw, 75vh) scale(0.7); }
+  60% { transform: translate(80vw, 10vh) scale(1.4); }
+  80% { transform: translate(25vw, 90vh) scale(0.6); }
+  100% { transform: translate(45vw, 45vh) scale(1); }
+}
+
+@keyframes ballBounce17 {
+  0% { transform: translate(20vw, 75vh) scale(1); }
+  17% { transform: translate(70vw, 10vh) scale(1.2); }
+  34% { transform: translate(10vw, 50vh) scale(0.8); }
+  51% { transform: translate(90vw, 85vh) scale(1.5); }
+  68% { transform: translate(40vw, 20vh) scale(0.7); }
+  85% { transform: translate(85vw, 60vh) scale(1.3); }
+  100% { transform: translate(20vw, 75vh) scale(1); }
+}
+
+@keyframes ballBounce18 {
+  0% { transform: translate(65vw, 25vh) scale(1); }
+  22% { transform: translate(15vw, 60vh) scale(1.4); }
+  44% { transform: translate(85vw, 35vh) scale(0.6); }
+  66% { transform: translate(30vw, 85vh) scale(1.3); }
+  88% { transform: translate(75vw, 15vh) scale(0.8); }
+  100% { transform: translate(65vw, 25vh) scale(1); }
+}
+
+@keyframes ballBounce19 {
+  0% { transform: translate(35vw, 85vh) scale(1); }
+  19% { transform: translate(80vw, 30vh) scale(1.3); }
+  38% { transform: translate(20vw, 60vh) scale(0.7); }
+  57% { transform: translate(90vw, 90vh) scale(1.4); }
+  76% { transform: translate(10vw, 20vh) scale(0.6); }
+  95% { transform: translate(70vw, 70vh) scale(1.2); }
+  100% { transform: translate(35vw, 85vh) scale(1); }
+}
+
+@keyframes ballBounce20 {
+  0% { transform: translate(70vw, 40vh) scale(1); }
+  21% { transform: translate(25vw, 80vh) scale(1.2); }
+  42% { transform: translate(95vw, 15vh) scale(0.8); }
+  63% { transform: translate(5vw, 55vh) scale(1.5); }
+  84% { transform: translate(80vw, 85vh) scale(0.7); }
+  100% { transform: translate(70vw, 40vh) scale(1); }
+}
+
+@keyframes ballBounce21 {
+  0% { transform: translate(10vw, 55vh) scale(1); }
+  18% { transform: translate(60vw, 90vh) scale(1.3); }
+  36% { transform: translate(90vw, 20vh) scale(0.7); }
+  54% { transform: translate(20vw, 40vh) scale(1.4); }
+  72% { transform: translate(80vw, 75vh) scale(0.6); }
+  90% { transform: translate(40vw, 10vh) scale(1.2); }
+  100% { transform: translate(10vw, 55vh) scale(1); }
+}
+
+@keyframes ballBounce22 {
+  0% { transform: translate(85vw, 50vh) scale(1); }
+  16% { transform: translate(30vw, 85vh) scale(1.2); }
+  32% { transform: translate(70vw, 10vh) scale(0.8); }
+  48% { transform: translate(15vw, 65vh) scale(1.3); }
+  64% { transform: translate(95vw, 35vh) scale(0.7); }
+  80% { transform: translate(45vw, 90vh) scale(1.4); }
+  96% { transform: translate(75vw, 20vh) scale(0.9); }
+  100% { transform: translate(85vw, 50vh) scale(1); }
+}
+
+@keyframes ballBounce23 {
+  0% { transform: translate(50vw, 70vh) scale(1); }
+  23% { transform: translate(5vw, 20vh) scale(1.5); }
+  46% { transform: translate(85vw, 80vh) scale(0.5); }
+  69% { transform: translate(25vw, 45vh) scale(1.3); }
+  92% { transform: translate(95vw, 95vh) scale(0.8); }
+  100% { transform: translate(50vw, 70vh) scale(1); }
+}
+
+@keyframes ballBounce24 {
+  0% { transform: translate(25vw, 20vh) scale(1); }
+  17% { transform: translate(75vw, 60vh) scale(1.2); }
+  34% { transform: translate(10vw, 85vh) scale(0.8); }
+  51% { transform: translate(90vw, 10vh) scale(1.4); }
+  68% { transform: translate(40vw, 50vh) scale(0.7); }
+  85% { transform: translate(80vw, 90vh) scale(1.3); }
+  100% { transform: translate(25vw, 20vh) scale(1); }
+}
+
+@keyframes ballBounce25 {
+  0% { transform: translate(80vw, 85vh) scale(1); }
+  20% { transform: translate(10vw, 35vh) scale(1.3); }
+  40% { transform: translate(70vw, 60vh) scale(0.7); }
+  60% { transform: translate(30vw, 15vh) scale(1.5); }
+  80% { transform: translate(90vw, 80vh) scale(0.6); }
+  100% { transform: translate(80vw, 85vh) scale(1); }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent, rgba(0, 0, 0, 0.5));
+}
+
+.bg-grid {
+  position: absolute;
+  inset: -2px;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.9), transparent 70%);
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.75) 65%, rgba(0, 0, 0, 0.92) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.7));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball {
+    animation: none !important;
+  }
+
+  .movie-list .movie-card {
+    animation: none !important;
+  }
 }
 
 button {
@@ -40,14 +732,14 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(96, 165, 250, 0.5);
+  background: linear-gradient(to bottom, var(--accent-1), var(--accent-2), var(--accent-3));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(96, 165, 250, 0.7);
+  background: linear-gradient(to bottom, #9333ea, #7c3aed, #4f46e5);
 }

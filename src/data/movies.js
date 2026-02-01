@@ -5,7 +5,7 @@ export const movies = [
     genre: "Sci-Fi",
     year: 2010,
     description: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
-    poster: "https://picsum.photos/seed/inception/300/450.jpg"
+    poster: "/inception.png"
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const movies = [
     genre: "Drama",
     year: 1994,
     description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-    poster: "https://picsum.photos/seed/shawshank/300/450.jpg"
+    poster: "/shawshank_redemption_ver2.jpg"
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const movies = [
     genre: "Action",
     year: 2008,
     description: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological tests.",
-    poster: "https://picsum.photos/seed/darkknight/300/450.jpg"
+    poster: "/dark_knight.jpg"
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const movies = [
     genre: "Crime",
     year: 1994,
     description: "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption.",
-    poster: "https://picsum.photos/seed/pulpfiction/300/450.jpg"
+    poster: "/pulp_fiction.jpg"
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const movies = [
     genre: "Sci-Fi",
     year: 2014,
     description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-    poster: "https://picsum.photos/seed/interstellar/300/450.jpg"
+    poster: "/interstellar_ver2.jpg"
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const movies = [
     genre: "Crime",
     year: 1972,
     description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-    poster: "https://picsum.photos/seed/godfather/300/450.jpg"
+    poster: "/godfather_ver3.jpg"
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const movies = [
     genre: "Drama",
     year: 1994,
     description: "The presidencies of Kennedy and Johnson, the Vietnam War, and the Watergate scandal unfold from the perspective of an Alabama man.",
-    poster: "https://picsum.photos/seed/forrestgump/300/450.jpg"
+    poster: "/forrest_gump.jpg"
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ export const movies = [
     genre: "Action",
     year: 2015,
     description: "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland.",
-    poster: "https://picsum.photos/seed/madmax/300/450.jpg"
+    poster: "/mad_max_fury_road_ver14.jpg"
   }
 ];
 
