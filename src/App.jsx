@@ -4,6 +4,7 @@ import GenreFilter from './components/GenreFilter';
 import MovieList from './components/MovieList';
 import LiveBackground from './components/LiveBackground';
 import { movies, genres } from './data/movies';
+import Footer from './components/Footer';
 import './index.css';
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
         />
         <MovieList movies={filteredMovies} />
       </div>
+      
+      <Footer />
     </div>
   );
 }
